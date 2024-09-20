@@ -23,14 +23,14 @@ public class HechosRepository {
     //private static final String USER = System.getenv("SPRING_DATASOURCE_USERNAME");
     //private static final String PASSWORD = System.getenv("SPRING_DATASOURCE_PASSWORD");
 
-    //private String URL = System.getenv("URL");
+    private String NAME = System.getenv("NAME");
     private String USER = System.getenv("USER");
     private String PASSWORD = System.getenv("PASSWORD");
     
 
     public void agregarHecho(Hecho hecho) {
         String query = "INSERT INTO hechos (descripcion) VALUES (?)";
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/" + NAME,USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, hecho.getDescription());
             statement.executeUpdate();
@@ -42,7 +42,7 @@ public class HechosRepository {
     public List<Hecho> listarHechos() {
         List<Hecho> hechos = new ArrayList<>();
         String query = "SELECT * FROM hechos";
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/" + NAME, USER, PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
@@ -62,7 +62,7 @@ public class HechosRepository {
 
     public Optional<Hecho> buscarHechoPorDescripcion(String descripcion) {
         String query = "SELECT * FROM hechos WHERE descripcion = ?";
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/" + NAME, USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, descripcion);
             try (ResultSet resultSet = statement.executeQuery()) {
