@@ -23,15 +23,14 @@ public class HechosRepository {
     //private static final String USER = System.getenv("SPRING_DATASOURCE_USERNAME");
     //private static final String PASSWORD = System.getenv("SPRING_DATASOURCE_PASSWORD");
 
-    private String URL = "172.30.20.163:31499";
-    private String NAME = "postgresql";
-    private String USER = "postgre";
-    private String PASSWORD = "postgre";
-
+    //private String URL = System.getenv("URL");
+    private String USER = System.getenv("USER");
+    private String PASSWORD = System.getenv("PASSWORD");
+    
 
     public void agregarHecho(Hecho hecho) {
         String query = "INSERT INTO hechos (descripcion) VALUES (?)";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, hecho.getDescription());
             statement.executeUpdate();
