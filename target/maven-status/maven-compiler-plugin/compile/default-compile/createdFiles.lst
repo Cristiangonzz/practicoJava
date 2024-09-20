@@ -1,0 +1,7 @@
+bussines/Services/HechosService.class
+bussines/Controllers/HechosControllerLocal.class
+data/HechosRepository.class
+bussines/Services/IHechosService.class
+models/Hecho.class
+bussines/Controllers/IHechosControllerLocal.class
+presentation/HechoServlet.class
