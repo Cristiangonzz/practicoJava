@@ -42,7 +42,7 @@ public class HechosRepository {
     public List<Hecho> listarHechos() {
         List<Hecho> hechos = new ArrayList<>();
         String query = "SELECT * FROM hechos";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
@@ -62,7 +62,7 @@ public class HechosRepository {
 
     public Optional<Hecho> buscarHechoPorDescripcion(String descripcion) {
         String query = "SELECT * FROM hechos WHERE descripcion = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://172.30.20.163:31499/postgresql", USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, descripcion);
             try (ResultSet resultSet = statement.executeQuery()) {
